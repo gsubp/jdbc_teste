@@ -2,40 +2,38 @@ package test;
 
 import java.util.ArrayList;
 import model.dao.EditoraDAO;
+import model.dao.UsuarioDAO;
 import model.vo.Editora;
+import model.vo.Telefone;
+import model.vo.Usuario;
 
 public class Teste {
 
 	public static void main(String[] args) {
-		EditoraDAO editoraDAO = EditoraDAO.getInstance();
-		Editora editora = new Editora();
-		ArrayList<Object> editoras = new ArrayList<>();
-		editora.nome = "Guilherme";
-		editora.cidade = "Cidade";
+		UsuarioDAO usuarioDAO = UsuarioDAO.getInstance();
+		ArrayList<Telefone> telefones = new ArrayList<>();
+		Telefone telefone1 = new Telefone();
+		Telefone telefone2 = new Telefone();
 		
-//		//inserir ediora
-//		dao.insert(editora);
-		//find id 11
-		editora = (Editora) editoraDAO.findById(11L);
-		System.out.println("id: " + editora.id + 
-						   "\nnome: " + editora.nome + 
-				           "\ncidade: " + editora.cidade);
-		//update editora com id 11
-		editora.cidade = "Serra Talhada";
-		editoraDAO.update(editora);
-//		//delete editoras com id 12 e 13
-//		dao.delete(12L);
-//		dao.delete(13L);
+		telefone1.telefone = "t123";
+		telefone2.telefone = "t234";
+		telefones.add(telefone1);
+		telefones.add(telefone1);
 		
-		//find all
-		editoras = editoraDAO.findAll();
-		for (Object obj : editoras){
-			Editora ed = (Editora) obj;
-			System.out.println("id: " + ed.id + 
-					   "\nnome: " + ed.nome + 
-			           "\ncidade: " + ed.cidade);
-			
-		}		
+		Usuario usuario = new Usuario();
+		usuario.cpf = "187";
+		usuario.nome = "Guilherme";
+		usuario.rua = "sda";
+		usuario.numero = "15A";
+		usuario.bairro = "dasd";
+		usuario.cidade = "csad";
+		usuario.uf = "CU";
+		usuario.pais = "aooa";
+		usuario.telefones = telefones;
+		
+		usuarioDAO.insert(usuario);
+		
+		
 		
 	}
 

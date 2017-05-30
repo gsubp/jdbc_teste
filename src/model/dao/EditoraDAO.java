@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import factory.DAOfactory;
 import model.vo.Editora;
 
-public class EditoraDAO extends DAOMysql implements DAOfactory{
+public class EditoraDAO extends DAOPostgree implements DAOfactory{
 	private static EditoraDAO editoraDAO = null;
 	
 	private EditoraDAO() {}

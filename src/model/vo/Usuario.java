@@ -7,11 +7,11 @@ public class Usuario {
 	public String nome;
 	public String cpf;
 	public String rua;
-	public int numero;
+	public String numero;
 	public String bairro;
 	public String cidade;
 	public String uf;
 	public String pais;
 	
-	public ArrayList<>
+	public ArrayList<Telefone> telefones;
 }
