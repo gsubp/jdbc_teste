@@ -8,5 +8,4 @@ public class Editora {
 	public String cidade;
 	public ArrayList<Obra> obras;
 	
-	
 }
