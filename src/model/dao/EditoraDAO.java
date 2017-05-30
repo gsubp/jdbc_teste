@@ -1,21 +1,31 @@
 package model.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
-
+import factory.DAOfactory;
 import model.vo.Editora;
 
-public class EditoraDAO extends DAO{
+public class EditoraDAO extends DAOMysql implements DAOfactory{
+	private static EditoraDAO editoraDAO = null;
+	
+	private EditoraDAO() {}
+	
+	public synchronized static EditoraDAO getInstance(){
+		if(editoraDAO == null)
+			editoraDAO = new EditoraDAO();
+		return editoraDAO;
+	}
+	
 	
 	@Override
 	public void insert(Object object) {
 		// TODO Auto-generated method stub
 		Editora editora = (Editora) object;
 		Connection conn = (Connection) getConnection();
-		String sql = "INSERT INTO editora (nome, cidade) VALUES (?,?)";		
+		String sql = "insert into editora (nome, cidade) values (?,?)";		
 		try{
 			PreparedStatement statement = (PreparedStatement) conn.prepareStatement(sql);
 			statement.setString(1, editora.nome);
@@ -33,7 +43,7 @@ public class EditoraDAO extends DAO{
 		// TODO Auto-generated method stub
 		Editora editora = (Editora) object;
 		Connection conn = (Connection) getConnection();
-		String sql = "UPDATE editora SET id = ?, nome = ?, cidade = ? WHERE id = ?";
+		String sql = "update editora set id = ?, nome = ?, cidade = ? where id = ?";
 		try{
 			PreparedStatement statement = (PreparedStatement) conn.prepareStatement(sql);
 			statement.setString(1, editora.id.toString());
@@ -50,9 +60,8 @@ public class EditoraDAO extends DAO{
 
 	@Override
 	public void delete(Long id) {
-		// TODO Auto-generated method stub
 		Connection conn = (Connection) getConnection();
-		String sql = "DELETE FROM editora WHERE id = ?";
+		String sql = "delete from editora where id = ?";
 		try{
 			PreparedStatement statement = (PreparedStatement) conn.prepareStatement(sql);
 			statement.setString(1, id.toString());
@@ -67,14 +76,14 @@ public class EditoraDAO extends DAO{
 	public Object findById(Long id) {
 		// TODO Auto-generated method stub
 		Connection conn = (Connection) getConnection();
-		String sql = "Select * FROM editora where id = ?";
+		String sql = "select * from editora where id = ?";
 		Editora editora = new Editora();
 		try {
 			PreparedStatement statement = (PreparedStatement) conn.prepareStatement(sql);
 			statement.setString(1, id.toString());
 			ResultSet result = statement.executeQuery();
 			if(result.next()){
-				editora.id = Long.decode(result.getString("id"));
+				editora.id = (result.getLong("id"));
 				editora.nome = result.getString("nome");
 				editora.cidade = result.getString("cidade");
 			}
@@ -91,7 +100,7 @@ public class EditoraDAO extends DAO{
 		// TODO Auto-generated method stub
 		ArrayList<Object> editoras = new ArrayList<>();
 		Connection conn = (Connection) getConnection();
-		String sql = "Select * FROM editora";
+		String sql = "select * from editora";
 		
 		try {
 			PreparedStatement statement = (PreparedStatement) conn.prepareStatement(sql);

@@ -1,9 +1,12 @@
 package factory;
 
-import model.dao.EditoraDAO;
+import java.util.ArrayList;
 
-public class DAOfactory {
-	public static EditoraDAO EditoraDaoFactory(){
-		return new EditoraDAO();
-	}
+public interface DAOfactory {
+	public void insert(Object object);
+	public void update(Object object);
+	public void delete(Long id);
+	public Object findById(Long id);
+	public ArrayList<Object> findAll();
+	
 }
